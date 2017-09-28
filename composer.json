@@ -22,6 +22,6 @@
     "symfony/framework-bundle": "~3.0"
   },
   "autoload": {
-    "psr-4": {"FGC\\MenuBundle": ""}
+    "psr-4": {"FGC\\MenuBundle\\": ""}
   }
 }
