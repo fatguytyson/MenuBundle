@@ -1,7 +1,7 @@
 {
   "name": "fgc/menu-bundle",
   "description": "A simple yet robust menu generator for Symfony3",
-  "keywords": ["menu"],
+  "keywords": ["menu", "symfony", "simple"],
   "type": "symfony-bundle",
   "licence": "MIT",
   "authors": [
