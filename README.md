@@ -1,7 +1,6 @@
 # FGCMenuBundle
 The FGCMenuBundle is a simple yet robust menu renderer for Symfony3
 ## Documentation
-**Provisional:** This is in theory, as I am not sure if this will work as of now.
 ### Installation
 #### 1. Download the bundle
 Open a command console, enter your project directory and execute the following command to download the latest
