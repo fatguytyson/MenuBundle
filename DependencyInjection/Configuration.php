@@ -44,6 +44,7 @@ class Configuration implements ConfigurationInterface
                             ->end()
                             ->arrayNode('routeOptions')
                                 ->info('Route options if route needs it.')
+	                            ->scalarPrototype()->end()
                             ->end()
                             ->scalarNode('icon')
                                 ->info('Icon name to add in dashboard menus.')
