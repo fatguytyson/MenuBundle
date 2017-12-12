@@ -55,7 +55,9 @@ fgc_menu:
                 # route name for the link to generate
                 route: homepage
                 # route parameters if any. If omitted, an empty array is returned
-                routeOptions: []
+                routeOptions: 
+                    option: value
+                    option2: value
                 # icon to be attached to the menu item. Great for dashboards
                 icon: dashboard
                 # order of the items, so the annotations can be integrated smoothly
