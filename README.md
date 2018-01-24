@@ -6,7 +6,7 @@ The FGCMenuBundle is a simple yet robust menu renderer for Symfony3
 Open a command console, enter your project directory and execute the following command to download the latest
 stable version of this bundle:
 ```bash
-$ composer require fgc/menu-bundle
+$ composer require fgc/menu-bundle "v0.9"
 ```
 This command requires you to have Composer installed globally, as explained in the 
 [installation chapter](https://getcomposer.org/doc/00-intro.md) of the Composer documentation.
@@ -122,6 +122,7 @@ I have a few templates I have needed already.
 * default
 * bootstrap4
 * sb_admin_2
+
 There are more coming, and can easily be overridden by adding them to your app/Resources directory.
 ```twig
 {# app/Resources/FGCMenuBundle/{template_name}.html.twig #}
@@ -142,5 +143,6 @@ There are more coming, and can easily be overridden by adding them to your app/R
 {% endfor %}
 ```
 ## Afterword
+New Features in development (dev-master) Add Dynamic Menus through event listener 
 I hope this handles your needs for a simple yet robust menu rendering solution. 
 Please feel free to submit issues so it can be improved.
