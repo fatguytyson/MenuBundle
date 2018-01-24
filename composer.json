@@ -3,7 +3,7 @@
   "description": "A simple yet robust menu generator for Symfony3",
   "keywords": ["menu", "symfony", "simple"],
   "type": "symfony-bundle",
-  "licence": "MIT",
+  "license": "MIT",
   "authors": [
     {
       "name": "Fat Guy Consulting, Inc.",
