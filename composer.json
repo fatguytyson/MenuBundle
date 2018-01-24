@@ -20,7 +20,8 @@
   ],
   "require": {
     "symfony/framework-bundle": "~3.0",
-    "twig/twig": "^2.0"
+    "twig/twig": "^2.0",
+    "doctrine/common": "*"
   },
   "autoload": {
     "psr-4": {"FGC\\MenuBundle\\": ""}

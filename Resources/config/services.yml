@@ -7,4 +7,4 @@ services:
         arguments: ["@fgc_menu.discovery"]
     fgc_menu.discovery:
         class: FGC\MenuBundle\Util\MenuDiscovery
-        arguments: ["%kernel.root_dir%", "@annotation_reader", "%fgc_menu.discovery.config%"]
+        arguments: ["%kernel.root_dir%", "@annotation_reader", "%fgc_menu.discovery.config%", "@event_dispatcher"]

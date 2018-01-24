@@ -43,7 +43,7 @@ class Menu
     private $order;
 
     /**
-     * @var array
+     * @var string
      */
     private $group;
 
@@ -61,20 +61,22 @@ class Menu
      * Menu constructor.
      * @param $options
      */
-    public function __construct($options)
+    public function __construct($options = null)
     {
-        if (isset($options['value'])) {
-            $options['name'] = $options['value'];
-            unset($options['value']);
-        }
+    	if ($options) {
+		    if (isset($options['value'])) {
+			    $options['name'] = $options['value'];
+			    unset($options['value']);
+		    }
 
-        foreach ($options as $key => $value) {
-            if (!property_exists($this, $key)) {
-                throw new \InvalidArgumentException(sprintf('Property "%s" does not exist', $key));
-            }
+		    foreach ($options as $key => $value) {
+			    if (!property_exists($this, $key)) {
+				    throw new \InvalidArgumentException(sprintf('Property "%s" does not exist', $key));
+			    }
 
-            $this->$key = $value;
-        }
+			    $this->$key = $value;
+		    }
+	    }
     }
 
     /**
@@ -140,4 +142,60 @@ class Menu
     {
         return $this->children;
     }
+
+	/**
+	 * @param string $name
+	 */
+	public function setName( $name ) {
+		$this->name = $name;
+	}
+
+	/**
+	 * @param string $route
+	 */
+	public function setRoute( $route ) {
+		$this->route = $route;
+	}
+
+	/**
+	 * @param array $routeOptions
+	 */
+	public function setRouteOptions( $routeOptions ) {
+		$this->routeOptions = $routeOptions;
+	}
+
+	/**
+	 * @param string $icon
+	 */
+	public function setIcon( $icon ) {
+		$this->icon = $icon;
+	}
+
+	/**
+	 * @param int $order
+	 */
+	public function setOrder( $order ) {
+		$this->order = $order;
+	}
+
+	/**
+	 * @param string $group
+	 */
+	public function setGroup( $group ) {
+		$this->group = $group;
+	}
+
+	/**
+	 * @param string $role
+	 */
+	public function setRole( $role ) {
+		$this->role = $role;
+	}
+
+	/**
+	 * @param string $children
+	 */
+	public function setChildren( $children ) {
+		$this->children = $children;
+	}
 }
