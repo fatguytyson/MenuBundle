@@ -148,6 +148,7 @@ class Menu
 	 */
 	public function setName( $name ) {
 		$this->name = $name;
+		return $this;
 	}
 
 	/**
@@ -155,6 +156,7 @@ class Menu
 	 */
 	public function setRoute( $route ) {
 		$this->route = $route;
+		return $this;
 	}
 
 	/**
@@ -162,6 +164,7 @@ class Menu
 	 */
 	public function setRouteOptions( $routeOptions ) {
 		$this->routeOptions = $routeOptions;
+		return $this;
 	}
 
 	/**
@@ -169,6 +172,7 @@ class Menu
 	 */
 	public function setIcon( $icon ) {
 		$this->icon = $icon;
+		return $this;
 	}
 
 	/**
@@ -176,6 +180,7 @@ class Menu
 	 */
 	public function setOrder( $order ) {
 		$this->order = $order;
+		return $this;
 	}
 
 	/**
@@ -183,6 +188,7 @@ class Menu
 	 */
 	public function setGroup( $group ) {
 		$this->group = $group;
+		return $this;
 	}
 
 	/**
@@ -190,6 +196,7 @@ class Menu
 	 */
 	public function setRole( $role ) {
 		$this->role = $role;
+		return $this;
 	}
 
 	/**
@@ -197,5 +204,6 @@ class Menu
 	 */
 	public function setChildren( $children ) {
 		$this->children = $children;
+		return $this;
 	}
 }

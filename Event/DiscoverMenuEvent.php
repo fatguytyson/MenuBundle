@@ -30,6 +30,7 @@ class DiscoverMenuEvent extends Event
 	 */
 	public function addMenuItem(Menu $item) {
 		$this->items[] = $item;
+		return $this;
 	}
 
 	/**
@@ -41,5 +42,6 @@ class DiscoverMenuEvent extends Event
 				$this->items[] = $item;
 			}
 		}
+		return $this;
 	}
 }
