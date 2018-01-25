@@ -95,7 +95,7 @@ public function dashboardAction()
 Follow the [instructions](https://symfony.com/doc/3.4/components/event_dispatcher.html#using-event-subscribers) to make
 an event subscriber and listen for the ``DiscoverMenuEvent::NAME`` event.
 
-Here, you can ``$event->addMenuItems(Menu)`` on the fly.
+Here, you can ``$event->addMenuItem(Menu)`` on the fly.
 
 Make sure to remember to add group names.
 
