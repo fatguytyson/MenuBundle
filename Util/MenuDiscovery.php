@@ -85,7 +85,7 @@ class MenuDiscovery
 
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
-            $class = $this->namespace . '\\' . $file->getBasename('.php');
+            $class = $this->namespace . ($file->getRelativePath() ? '\\'.$file->getRelativePath().'\\' : '\\') . $file->getBasename('.php');
             foreach (get_class_methods($class) as $method) {
                 $annotation = $this->annotationReader->getMethodAnnotations(new \ReflectionMethod("$class::$method"));
                 /** @var Menu $ann */
