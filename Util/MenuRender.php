@@ -42,12 +42,13 @@ class MenuRender
 	 */
     public function FGCMenuRender($name = 'default', $template = 'default', $depth = 2)
     {
-    	$hash = is_array($name) ? json_encode($name) : $name;
+    	$items = is_array($name) ? $name : $this->menuManager->getMenu($name);
+    	$hash = json_encode($items);
     	$hash .= $template . $depth;
     	$item = $this->cache->getItem('fgc_menu_'.md5($hash));
     	if (!$item->isHit()) {
     		$item->set($this->twigEngine->render('@FGCMenu/'.$template.'.html.twig', array(
-			    'menu' => is_array($name) ? $name : $this->menuManager->getMenu($name),
+			    'menu' => $items,
 			    'template' => $template,
 			    'depth' => --$depth
 		    )));
