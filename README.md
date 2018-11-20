@@ -35,7 +35,7 @@ class AppKernel extends Kernel
     // ...
 }
 ```
-#### 3. (Optional) Configure the bundle
+#### 3. Configure the bundle
 The bundle comes with a sensible default configuration, which is listed below. You can define these options 
 if you need to change them:
 ```yaml
@@ -43,58 +43,35 @@ if you need to change them:
 fgc_menu:
     # The path for the @Menu Annotation to look.
     # This is the default location, and only needs to be added IF you changed the base Bundle
-    directory: AppBundle/Controller
+#    directory: AppBundle/Controller
     # The Namespace for the @Menu Annotation to apply.
     # Same as above
-    namespace: AppBundle\Controller
+#    namespace: AppBundle\Controller
     # Defining of menus that aren't in your main bundle
-    menus:
+#    menus:
         # Menu group name and identifier
         # default is also the group given if omitted
-        default:
-            # Menu Title
-            Home Page:
-                # each option below is optional
-                # route name for the link to generate
-                route: homepage
-                # route parameters if any. If omitted, an empty array is returned
-                routeOptions: 
-                    option: value
-                    option2: value
-                # icon to be attached to the menu item. Great for dashboards
-                icon: dashboard
-                # order of the items, so the annotations can be integrated smoothly
-                order: 1
-                # a single ROLE to show only if is_granted() or none to always show
-                role: IS_ANONYMOUS
-                # to make mult-level menus, menu name to place under this item.
-                children: user
-```
-### Add your first Annotated ```@Menu()``` item
-Add the annotation to the Use statements block.
-```php
-// src/AppBundle/Controller/MyController.php
-<?php
-namespace AppBundle\Controller;
-
-use AppBundle\Annotation\Menu;
-use //...
+    default:
+        # Menu Title
+        Home Page:
+            # each option below is optional
+            # route name for the link to generate
+            route: homepage
+            # route parameters if any. If omitted, an empty array is returned
+            routeOptions: 
+                option: value
+                option2: value
+            # icon to be attached to the menu item. Great for dashboards
+            icon: dashboard
+            # order of the items, so the annotations can be integrated smoothly
+            order: 1
+            # a single ROLE to show only if is_granted() or none to always show
+            role: IS_ANONYMOUS
+            # to make mult-level menus, menu name to place under this item.
+            children: user
 ```
 
-Then add the ```@Menu()``` annotation to any controller function.
-
-```php
-// src/AppBundle/Controller/MyController.php
-/**
- * @Menu("Dashboard", route="admin_dashboard", icon="dashboard", order="1", group="admin", role="ROLE_ADMIN")
- * @Menu("Admin Area", route="admin_dashboard", order="3")
- * @Route("/", name="admin_dashboard")
- */
-public function dashboardAction()
-{//...
-```
-
-### Add Dynamic Menu Items (Advanced)
+### Add Dynamic Menu Items
 Follow the [instructions](https://symfony.com/doc/3.4/components/event_dispatcher.html#using-event-subscribers) to make
 an event subscriber and listen for the ``DiscoverMenuEvent::NAME`` event.
 
