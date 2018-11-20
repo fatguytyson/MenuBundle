@@ -138,3 +138,5 @@ There are more coming, and can easily be overridden by adding them to your app/R
 New Features in development (dev-master) Add Dynamic Menus through event listener 
 I hope this handles your needs for a simple yet robust menu rendering solution. 
 Please feel free to submit issues so it can be improved.
+
+This is an attempt to move to Symfony4.
