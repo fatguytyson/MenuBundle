@@ -15,6 +15,8 @@ This command requires you to have Composer installed globally, as explained in t
 [installation chapter](https://getcomposer.org/doc/00-intro.md) of the Composer documentation.
 #### 2. Enable the Bundle
 Then, enable the bundle by adding the following line in the ```app/AppKernel.php``` file of your project:
+
+This is only needed if you don't have symfony/flex.
 ```php
 // app/AppKernel.php
 
