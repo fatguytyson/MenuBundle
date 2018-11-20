@@ -2,6 +2,8 @@
 namespace FGC\MenuBundle\Util;
 
 
+use Symfony\Component\Cache\Adapter\AdapterInterface;
+
 class MenuRender
 {
     /**
@@ -20,10 +22,11 @@ class MenuRender
 	 * @param MenuManager       $menuManager
 	 * @param \Twig_Environment $twigEngine
 	 */
-    public function __construct(MenuManager $menuManager, \Twig_Environment $twigEngine)
+    public function __construct(MenuManager $menuManager, \Twig_Environment $twigEngine, AdapterInterface $cache)
     {
         $this->twigEngine = $twigEngine;
         $this->menuManager = $menuManager;
+        $this->cache = $cache;
     }
 
 	/**
@@ -39,10 +42,17 @@ class MenuRender
 	 */
     public function FGCMenuRender($name = 'default', $template = 'default', $depth = 2)
     {
-        return $this->twigEngine->render('@FGCMenu/'.$template.'.html.twig', array(
-            'menu' => is_array($name) ? $name : $this->menuManager->getMenu($name),
-            'template' => $template,
-            'depth' => --$depth
-        ));
+    	$hash = is_array($name) ? json_encode($name) : $name;
+    	$hash .= $template . $depth;
+    	$item = $this->cache->getItem('fgc_menu_'.md5($hash));
+    	if (!$item->isHit()) {
+    		$item->set($this->twigEngine->render('@FGCMenu/'.$template.'.html.twig', array(
+			    'menu' => is_array($name) ? $name : $this->menuManager->getMenu($name),
+			    'template' => $template,
+			    'depth' => --$depth
+		    )));
+    		$this->cache->save($item);
+	    }
+        return $item->get();
     }
 }
