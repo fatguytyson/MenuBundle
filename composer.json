@@ -19,7 +19,7 @@
     }
   ],
   "require": {
-    "symfony/framework-bundle": "~4",
+    "symfony/framework-bundle": "~4.0",
     "twig/twig": "^2.0",
     "doctrine/common": "*"
   },
