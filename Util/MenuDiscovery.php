@@ -11,15 +11,15 @@ use Symfony\Component\Finder\SplFileInfo;
 
 class MenuDiscovery
 {
-    private $namespace;
+//    private $namespace;
 
-    private $directory;
+//    private $directory;
 
-    private $annotationReader;
+//    private $annotationReader;
 
-    private $rootDir;
+//    private $rootDir;
 
-    private $menus;
+    private $menus = [];
 
     private $fetched;
 
@@ -27,29 +27,27 @@ class MenuDiscovery
 
     /**
      * MenuDiscovery constructor.
-     * @param $rootDir
-     * @param Reader $annotationReader
-     * @param array $options
+     * @param array                    $options
+     * @param EventDispatcherInterface $dispatcher
      */
-    public function __construct($rootDir, Reader $annotationReader, $options, EventDispatcherInterface $dispatcher)
+    public function __construct($options, EventDispatcherInterface $dispatcher)
     {
         $this->fetched = false;
-        $this->annotationReader = $annotationReader;
-        $this->rootDir = $rootDir;
+//        $this->annotationReader = $annotationReader;
+//        $this->rootDir = $rootDir;
         $this->dispatcher = $dispatcher;
-        $this->directory = $options['directory'];
-        $this->namespace = $options['namespace'];
+//        $this->directory = $options['directory'];
+//        $this->namespace = $options['namespace'];
 
         foreach ($options['menus'] as $group => $items) {
             foreach ($items as $name => $values) {
                 $values['name']  = $name;
                 $values['group'] = $group;
                 $item = new Menu($values);
-                if (isset($this->menus[$group])) {
-                    $this->menus[$group][] = $item;
-                } else {
-                    $this->menus[$group] = array($item);
+                if (!isset($this->menus[$group])) {
+                    $this->menus[$group] = [];
                 }
+	            $this->menus[$group][] = $item;
             }
         }
     }
@@ -61,9 +59,9 @@ class MenuDiscovery
      */
     public function getMenus()
     {
-        if (!$this->directory || !$this->namespace) {
-            throw new \InvalidArgumentException('Directory/Namespace not set correctly.');
-        }
+//        if (!$this->directory || !$this->namespace) {
+//            throw new \InvalidArgumentException('Directory/Namespace not set correctly.');
+//        }
 
         if (!$this->fetched) {
             $this->discoverMenus();
@@ -79,27 +77,27 @@ class MenuDiscovery
 	 */
     private function discoverMenus()
     {
-        $path = $this->rootDir . '/../src/' . $this->directory;
-        $finder = new Finder();
-        $finder->files()->in($path);
+//        $path = $this->rootDir . '/../src/' . $this->directory;
+//        $finder = new Finder();
+//        $finder->files()->in($path);
 
-        /** @var SplFileInfo $file */
-        foreach ($finder as $file) {
-            $class = $this->namespace . ($file->getRelativePath() ? '\\'.$file->getRelativePath().'\\' : '\\') . $file->getBasename('.php');
-            foreach (get_class_methods($class) as $method) {
-                $annotation = $this->annotationReader->getMethodAnnotations(new \ReflectionMethod("$class::$method"));
-                /** @var Menu $ann */
-                foreach ($annotation as $ann) {
-                    if ($ann instanceof Menu) {
-                        if (isset($this->menus[$ann->getGroup()])) {
-                            $this->menus[$ann->getGroup()][] = $ann;
-                        } else {
-                            $this->menus[$ann->getGroup()] = array($ann);
-                        }
-                    }
-                }
-            }
-        }
+//        /** @var SplFileInfo $file */
+//        foreach ($finder as $file) {
+//            $class = $this->namespace . ($file->getRelativePath() ? '\\'.$file->getRelativePath().'\\' : '\\') . $file->getBasename('.php');
+//            foreach (get_class_methods($class) as $method) {
+//                $annotation = $this->annotationReader->getMethodAnnotations(new \ReflectionMethod("$class::$method"));
+//                /** @var Menu $ann */
+//                foreach ($annotation as $ann) {
+//                    if ($ann instanceof Menu) {
+//                        if (isset($this->menus[$ann->getGroup()])) {
+//                            $this->menus[$ann->getGroup()][] = $ann;
+//                        } else {
+//                            $this->menus[$ann->getGroup()] = array($ann);
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         // Event Dispatch (Add dynamic Menu Items)
 	    $event = new DiscoverMenuEvent();
@@ -107,11 +105,10 @@ class MenuDiscovery
         if ($new_items) {
         	foreach($new_items as $item) {
         		if ($item instanceof Menu) {
-			        if (isset($this->menus[$item->getGroup()])) {
-				        $this->menus[$item->getGroup()][] = $item;
-			        } else {
-				        $this->menus[$item->getGroup()] = array($item);
+			        if (!isset($this->menus[$item->getGroup()])) {
+				        $this->menus[$item->getGroup()] = [];
 			        }
+			        $this->menus[$item->getGroup()][] = $item;
 		        }
 	        }
         }

@@ -42,7 +42,6 @@ class MenuManager
      *
      * @param $name string
      * @return array
-     * @throws \Exception
      */
     public function getMenu($name)
     {
@@ -50,6 +49,18 @@ class MenuManager
         if (isset($menus[$name])) {
             return $menus[$name];
         }
-        throw new \Exception('Menu not found');
+        return [];
+//        throw new \Exception('Menu not found');
+    }
+
+	/**
+	 * @param $name
+	 *
+	 * @return bool
+	 */
+    public function isMenu($name)
+    {
+	    $menus = $this->getMenus();
+	    return isset($menus[$name]);
     }
 }

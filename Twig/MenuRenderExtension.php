@@ -31,9 +31,9 @@ class MenuRenderExtension extends \Twig_Extension
     }
 
 	/**
-	 * @param string $name
-	 * @param string $template
-	 * @param int    $depth
+	 * @param string|array $name
+	 * @param string       $template
+	 * @param int          $depth
 	 *
 	 * @return string
 	 * @throws \Exception

@@ -27,9 +27,9 @@ class MenuRender
     }
 
 	/**
-	 * @param string $name
-	 * @param string $template
-	 * @param int    $depth
+	 * @param string|array $name
+	 * @param string       $template
+	 * @param int          $depth
 	 *
 	 * @return string
 	 * @throws \Exception
@@ -40,7 +40,7 @@ class MenuRender
     public function FGCMenuRender($name = 'default', $template = 'default', $depth = 2)
     {
         return $this->twigEngine->render('@FGCMenu/'.$template.'.html.twig', array(
-            'menu' => $this->menuManager->getMenu($name),
+            'menu' => is_array($name) ? $name : $this->menuManager->getMenu($name),
             'template' => $template,
             'depth' => --$depth
         ));

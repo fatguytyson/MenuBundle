@@ -21,16 +21,16 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('fgc_menu');
 
         $rootNode
-            ->children()
-                ->scalarNode('directory')
-                    ->info('The path for the @Menu Annotation to look.')
-                    ->defaultValue('AppBundle/Controller')
-                ->end()
-                ->scalarNode('namespace')
-                    ->info('The Namespace for the @Menu Annotation to apply.')
-                    ->defaultValue('AppBundle\Controller')
-                ->end()
-                ->arrayNode('menus')
+//            ->children()
+//                ->scalarNode('directory')
+//                    ->info('The path for the @Menu Annotation to look.')
+//                    ->defaultValue('AppBundle/Controller')
+//                ->end()
+//                ->scalarNode('namespace')
+//                    ->info('The Namespace for the @Menu Annotation to apply.')
+//                    ->defaultValue('AppBundle\Controller')
+//                ->end()
+//                ->arrayNode('menus')
                     ->info('Menu structures for routes outside of your src.')
                     ->defaultValue(array())
                     ->useAttributeAsKey('group')
@@ -50,7 +50,7 @@ class Configuration implements ConfigurationInterface
                             ->end()
                             ->integerNode('order')
                                 ->min(0)
-                                ->info('Order of the menu item so Annotations can be adde in.')
+                                ->info('Order of the menu item so Annotations can be added in.')
                             ->end()
                             ->scalarNode('role')
                                 ->info('A single ROLE to show only if is_granted() or none to always show.')
@@ -60,8 +60,8 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
                     ->end()
-                ->end()
-            ->end()
+//                ->end()
+//            ->end()
         ;
 
         return $treeBuilder;

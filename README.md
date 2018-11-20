@@ -1,5 +1,8 @@
 # FGCMenuBundle
-The FGCMenuBundle is a simple yet robust menu renderer for Symfony3
+The FGCMenuBundle is a simple yet robust menu renderer for Symfony4.
+
+The biggest change is the decision to remove Annotation Support. The feature made code handling difficult to manage, and
+chasing down menu items difficult. So centralising menu creation in configurations, and events.
 ## Documentation
 ### Installation
 #### 1. Download the bundle
