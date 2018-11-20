@@ -39,7 +39,7 @@ class MenuDiscovery
 //        $this->directory = $options['directory'];
 //        $this->namespace = $options['namespace'];
 
-        foreach ($options['menus'] as $group => $items) {
+        foreach ($options as $group => $items) {
             foreach ($items as $name => $values) {
                 $values['name']  = $name;
                 $values['group'] = $group;
