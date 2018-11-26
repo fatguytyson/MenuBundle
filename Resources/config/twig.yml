@@ -8,4 +8,4 @@ services:
         tags: ["twig.extension"]
     fgc_menu.twig.render:
         class: FGC\MenuBundle\Util\MenuRender
-        arguments: ["@fgc_menu.manager", "@twig", "@cache.app"]
+        arguments: ["@fgc_menu.manager", "@twig"]

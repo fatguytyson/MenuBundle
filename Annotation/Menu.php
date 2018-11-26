@@ -50,9 +50,14 @@ class Menu
     /**
      * @var string
      */
-    private $role;
+    private $granted;
 
-    /**
+	/**
+	 * @var mixed
+	 */
+	private $grantedObject;
+
+	/**
      * @var string
      */
     private $children;
@@ -127,15 +132,23 @@ class Menu
         return $this->group ? $this->group : 'default';
     }
 
-    /**
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
+	/**
+	 * @return string
+	 */
+	public function getGranted()
+	{
+		return $this->granted;
+	}
 
-    /**
+	/**
+	 * @return mixed
+	 */
+	public function getGrantedObject()
+	{
+		return $this->grantedObject;
+	}
+
+	/**
      * @return string
      */
     public function getChildren()
@@ -192,10 +205,18 @@ class Menu
 	}
 
 	/**
-	 * @param string $role
+	 * @param string $granted
 	 */
-	public function setRole( $role ) {
-		$this->role = $role;
+	public function setGranted( $granted ) {
+		$this->granted = $granted;
+		return $this;
+	}
+
+	/**
+	 * @param mixed $grantedOptions
+	 */
+	public function setGrantedObject( $grantedObject ) {
+		$this->grantedObject = $grantedObject;
 		return $this;
 	}
 

@@ -67,8 +67,12 @@ fgc_menu:
             icon: dashboard
             # order of the items, so the annotations can be integrated smoothly
             order: 1
-            # a single ROLE to show only if is_granted() or none to always show
-            role: IS_ANONYMOUS
+            # a single ROLE to show only if is_granted() or none to always show This was previously ROLE, and is a 
+            # breaking change.
+            granted: IS_ANONYMOUS
+            # This is needed if the granted action needs an object to check against. You may need to dynamically add
+            # the menu item to add objects rather than strings
+            grantedObject: 'User'
             # to make mult-level menus, menu name to place under this item.
             children: user
 ```
@@ -119,7 +123,7 @@ There are more coming, and can easily be overridden by adding them to your app/R
 ```twig
 {# app/Resources/FGCMenuBundle/{template_name}.html.twig #}
 {% for item in menu %}
-    {% if not item.role or is_granted(item.role) %}
+    {% if not item.granted or is_granted(item.granted, item.grantedObject) %}
         <li>
             <a href="{{ item.route ? path(item.route, item.routeOptions) : '#' }}">
                 {% if item.icon %}<i class="fa fa-{{ item.icon }}" ></i>{% endif %}
@@ -135,6 +139,9 @@ There are more coming, and can easily be overridden by adding them to your app/R
 {% endfor %}
 ```
 ## Afterword
+In v2, cache was attempted to be added, and while it saved the cache correctly, there are too many variables to chase 
+down into to generate the cache key. I may try again, but not now.
+
 New Features in development (dev-master) Add Dynamic Menus through event listener 
 I hope this handles your needs for a simple yet robust menu rendering solution. 
 Please feel free to submit issues so it can be improved.
