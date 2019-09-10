@@ -1,10 +1,7 @@
 services:
-#    fgc_menu.example:
-#        class: FGC\MenuBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
     fgc_menu.manager:
         class: FGC\MenuBundle\Util\MenuManager
         arguments: ["@fgc_menu.discovery"]
     fgc_menu.discovery:
         class: FGC\MenuBundle\Util\MenuDiscovery
-        arguments: ["%fgc_menu.discovery.config%", "@event_dispatcher"]
+        arguments: ["%fgc_menu.config%", "@event_dispatcher"]

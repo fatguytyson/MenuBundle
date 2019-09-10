@@ -1,7 +1,15 @@
 <?php
+/**
+ * Copyright (c) 2019. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 namespace FGC\MenuBundle\Util;
 
-use FGC\MenuBundle\Annotation\Menu;
+use FGC\MenuBundle\Entity\Menu;
 
 class MenuManager
 {
@@ -9,7 +17,6 @@ class MenuManager
      * @var MenuDiscovery
      */
     private $menuDiscovery;
-
     /**
      * @var array
      */
@@ -27,40 +34,46 @@ class MenuManager
     /**
      * Return all menus
      *
-     * @return array
+     * @return Menu[][]
      */
-    public function getMenus()
+    public function getMenus(): array
     {
-        if (!$this->menus) {
-            $this->menus = $this->menuDiscovery->getMenus();
-        }
+        $this->loadMenus();
         return $this->menus;
     }
 
     /**
      * Get specific menu
      *
-     * @param $name string
-     * @return array
+     * @param string $name
+     * @return Menu[]
      */
-    public function getMenu($name)
+    public function getMenu(string $name): array
     {
-        $menus = $this->getMenus();
-        if (isset($menus[$name])) {
-            return $menus[$name];
+        if ($this->isMenu($name)) {
+            return $this->menus[$name];
         }
         return [];
-//        throw new \Exception('Menu not found');
     }
 
 	/**
-	 * @param $name
+	 * @param string $name
 	 *
 	 * @return bool
 	 */
-    public function isMenu($name)
+    public function isMenu(string $name): bool
     {
-	    $menus = $this->getMenus();
-	    return isset($menus[$name]);
+        $this->loadMenus();
+	    return isset($this->menus[$name]);
+    }
+
+    /**
+     * Makes sure menus are loaded
+     */
+    private function loadMenus(): void
+    {
+        if (!$this->menus) {
+            $this->menus = $this->menuDiscovery->getMenus();
+        }
     }
 }

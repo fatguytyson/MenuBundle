@@ -1,7 +1,14 @@
 {% for item in menu %}
     {% if not item.granted or is_granted(item.granted, item.grantedObject) %}
         <li class="nav-item{{ item.children and depth ? ' dropdown' }}">
-            <a class="nav-link{{ item.children and depth ? ' dropdown-toggle' }}" href="{{ item.route ? path(item.route, item.routeOptions) : '#' }}"{% if item.children and depth %} id="{{ item.children }}DropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"{% endif %}>
+            <a class="nav-link{{ item.children and depth ? ' dropdown-toggle' }}"
+                href="{{ item.route ? path(item.route, item.routeOptions) : '#' }}"
+                    {% if item.children and depth %}
+                id="{{ item.children }}DropdownMenuLink"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                    {% endif %}>
                 {% if item.icon %}<i class="fa fa-{{ item.icon }}" ></i>{% endif %}
                 {{ item.name }}
             </a>

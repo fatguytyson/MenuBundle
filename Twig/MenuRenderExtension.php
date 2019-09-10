@@ -1,9 +1,23 @@
 <?php
+/**
+ * Copyright (c) 2019. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 namespace FGC\MenuBundle\Twig;
 
+use Exception;
 use FGC\MenuBundle\Util\MenuRender;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+use Twig_Error_Loader;
+use Twig_Error_Runtime;
+use Twig_Error_Syntax;
 
-class MenuRenderExtension extends \Twig_Extension
+class MenuRenderExtension extends AbstractExtension
 {
     /**
      * @var MenuRender
@@ -21,13 +35,13 @@ class MenuRenderExtension extends \Twig_Extension
     }
 
 	/**
-	 * @return array|\Twig_Function[]
+	 * @return array|TwigFunction[]
 	 */
-    public function getFunctions()
+    public function getFunctions(): array
     {
-        return array(
-            new \Twig_SimpleFunction('fgc_menu', array($this,'FGCMenuRender'), array('is_safe' => array('html')))
-        );
+        return [
+            new TwigFunction('fgc_menu', [$this, 'FGCMenuRender'], ['is_safe' => ['html']]),
+        ];
     }
 
 	/**
@@ -36,12 +50,12 @@ class MenuRenderExtension extends \Twig_Extension
 	 * @param int          $depth
 	 *
 	 * @return string
-	 * @throws \Exception
-	 * @throws \Twig_Error_Loader
-	 * @throws \Twig_Error_Runtime
-	 * @throws \Twig_Error_Syntax
+	 * @throws Exception
+	 * @throws Twig_Error_Loader
+	 * @throws Twig_Error_Runtime
+	 * @throws Twig_Error_Syntax
 	 */
-    public function FGCMenuRender($name = 'default', $template = 'default', $depth = 2)
+    public function FGCMenuRender($name = 'default', $template = 'default', $depth = 2): string
     {
         return $this->menuRender->FGCMenuRender($name, $template, $depth);
     }

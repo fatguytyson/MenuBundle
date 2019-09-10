@@ -1,6 +1,6 @@
 {
   "name": "fgc/menu-bundle",
-  "description": "A simple yet robust menu generator for Symfony3",
+  "description": "A simple yet robust menu generator for Symfony4",
   "keywords": ["menu", "symfony", "simple"],
   "type": "symfony-bundle",
   "license": "MIT",
@@ -19,9 +19,9 @@
     }
   ],
   "require": {
-    "symfony/framework-bundle": "~4.1",
-    "twig/twig": "^2.0",
-    "doctrine/common": "*"
+    "php": "~7.1",
+    "symfony/framework-bundle": "~4.3",
+    "twig/twig": "^2.0"
   },
   "autoload": {
     "psr-4": {"FGC\\MenuBundle\\": ""}

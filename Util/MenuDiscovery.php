@@ -1,13 +1,18 @@
 <?php
+/**
+ * Copyright (c) 2019. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
 
 namespace FGC\MenuBundle\Util;
 
-use FGC\MenuBundle\Annotation\Menu;
-use Doctrine\Common\Annotations\Reader;
+use FGC\MenuBundle\Entity\Menu;
 use FGC\MenuBundle\Event\DiscoverMenuEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
+use ReflectionException;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class MenuDiscovery
 {
@@ -44,8 +49,9 @@ class MenuDiscovery
      * Returns all menus
      *
      * @return array
+     * @throws ReflectionException
      */
-    public function getMenus()
+    public function getMenus(): array
     {
         if (!$this->fetched) {
             $this->discoverMenus();
@@ -57,13 +63,12 @@ class MenuDiscovery
 	/**
 	 * Gathers Annotation information for menus
 
-	 * @throws \ReflectionException
+	 * @throws ReflectionException
 	 */
-    private function discoverMenus()
+    private function discoverMenus(): void
     {
         // Event Dispatch (Add dynamic Menu Items)
-	    $event = new DiscoverMenuEvent();
-        $new_items = $this->dispatcher->dispatch(DiscoverMenuEvent::NAME, $event)->getItems();
+        $new_items = $this->dispatcher->dispatch(new DiscoverMenuEvent())->getItems();
         if ($new_items) {
         	foreach($new_items as $item) {
         		if ($item instanceof Menu) {
@@ -77,7 +82,7 @@ class MenuDiscovery
 
         foreach ($this->menus as &$group) {
         	/** $a, $b Menu  */
-            usort($group, function ($a, $b) {return $a->getOrder()<=$b->getOrder()?-1:1;});
+            usort($group, function (Menu $a, Menu $b) {return $a->getOrder()<=$b->getOrder()?-1:1;});
         }
 
         $this->fetched = true;

@@ -18,41 +18,22 @@ Then, enable the bundle by adding the following line in the ```app/AppKernel.php
 
 This is only needed if you don't have symfony/flex.
 ```php
-// app/AppKernel.php
+// config/bundles.php
 
 // ...
-class AppKernel extends Kernel
-{
-    public function registerBundles()
-    {
-        $bundles = array(
+return [
             // ...
-
-            new FGC\MenuBundle\FGCMenuBundle(),
-        );
-
-        // ...
-    }
-
-    // ...
-}
+            FGC\MenuBundle\FGCMenuBundle::class => ['all' => true],
+        ];
 ```
 #### 3. Configure the bundle
 The bundle comes with a sensible default configuration, which is listed below. You can define these options 
 if you need to change them:
 ```yaml
-# app/config/config.yml
+# config/packages/fgc_menu.yaml
 fgc_menu:
-    # The path for the @Menu Annotation to look.
-    # This is the default location, and only needs to be added IF you changed the base Bundle
-#    directory: AppBundle/Controller
-    # The Namespace for the @Menu Annotation to apply.
-    # Same as above
-#    namespace: AppBundle\Controller
-    # Defining of menus that aren't in your main bundle
-#    menus:
-        # Menu group name and identifier
-        # default is also the group given if omitted
+    # Menu group name and identifier
+    # default is also the group given if omitted
     default:
         # Menu Title
         Home Page:
@@ -65,7 +46,7 @@ fgc_menu:
                 option2: value
             # icon to be attached to the menu item. Great for dashboards
             icon: dashboard
-            # order of the items, so the annotations can be integrated smoothly
+            # order of the items, so inserted Items during events can be integrated smoothly
             order: 1
             # a single ROLE to show only if is_granted() or none to always show This was previously ROLE, and is a 
             # breaking change.
@@ -78,7 +59,7 @@ fgc_menu:
 ```
 
 ### Add Dynamic Menu Items
-Follow the [instructions](https://symfony.com/doc/3.4/components/event_dispatcher.html#using-event-subscribers) to make
+Follow the [instructions](https://symfony.com/doc/current/components/event_dispatcher.html#using-event-subscribers) to make
 an event subscriber and listen for the ``DiscoverMenuEvent::NAME`` event.
 
 Here, you can ``$event->addMenuItem(Menu)`` on the fly.
@@ -121,7 +102,7 @@ I have a few templates I have needed already.
 
 There are more coming, and can easily be overridden by adding them to your app/Resources directory.
 ```twig
-{# app/Resources/FGCMenuBundle/{template_name}.html.twig #}
+{# templates/bundles/FGCMenuBundle/{template_name}.html.twig #}
 {% for item in menu %}
     {% if not item.granted or is_granted(item.granted, item.grantedObject) %}
         <li>
@@ -142,8 +123,4 @@ There are more coming, and can easily be overridden by adding them to your app/R
 In v2, cache was attempted to be added, and while it saved the cache correctly, there are too many variables to chase 
 down into to generate the cache key. I may try again, but not now.
 
-New Features in development (dev-master) Add Dynamic Menus through event listener 
-I hope this handles your needs for a simple yet robust menu rendering solution. 
 Please feel free to submit issues so it can be improved.
-
-This is an attempt to move to Symfony4.
